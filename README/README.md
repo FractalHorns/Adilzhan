@@ -55,8 +55,9 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
 <img src = 2.jpg>
 
 Функции, отвечающие за создание радиокнопок для изменения цвета текста
-     p {
-
+        
+ ```Kotlin      
+ p {
                 +"Blue"
                 input (option = arrayListOf("blue"))
                 br
@@ -86,6 +87,7 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
 
 Функция смены цвета текста
 
+    ```Kotlin 
     private fun colorchange(value: String): (Event) -> Unit {
     return {
         val div = document.getElementById("root")!!
