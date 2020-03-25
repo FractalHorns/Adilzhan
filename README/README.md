@@ -1,9 +1,9 @@
-Основной код программы который выводит список студентов.
-```Kotlin
-var ascending = true
+Данная часть кода отвечает за вывод списка студентов и создания кнопок дляя окрашивания текста.
+
+```kotlin
 
 fun main() {
-    document.getElementById("karas")!!.append {
+    document.getElementById("root")!!.append {
         h1 {
             +"Students"
             firstSort()
@@ -20,35 +20,9 @@ fun main() {
                     onClickFunction = onClickFunction2(tmp)
                 }
             }
-        }
-    }
-}
 
-```
-Данная часть кода отвечает за вывод списка студентов.
-В данном коде используется функция onClickFunction2.
+            p {
 
-```Kotlin
-private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
-    console.log("1 - SN = ${tmp.surName}\n ${tmp.presence} \nID = ${this.id}")
-    tmp.presence = !tmp.presence
-    val listStudents = document.getElementById(this.id)!!
-    listStudents.clear()
-    listStudents.append {
-        span { +"${tmp.firstName} ${tmp.surName} ${if(tmp.presence)"присутствует" else "отсутствует"}"
-            attributes += if(!tmp.presence) {
-                "style" to "color:grey"
-            } else "style" to "color:white"}
-    }
-    console.log("2 - SN = ${tmp.surName}\n ${tmp.presence} \nID = ${this.id}")
-```
-Функция отвечает за окрашивание студета при нажатии на него.
-
-
-
-        
- ```Kotlin      
- p {
                 +"Blue"
                 input (option = arrayListOf("blue"))
                 br
@@ -60,12 +34,21 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
                 br
                 +"White"
                 input (option = arrayListOf("white"))
-                }
-                
-          fun FlowOrInteractiveOrPhrasingContent.input(
+            }
+        }
+    }
+}
+
+```
+
+Для того что бы сократать код мы переопределили функцию input.
+
+```kotlin
+
+fun FlowOrInteractiveOrPhrasingContent.input(
     option: List<String>,
     block : INPUT.() -> Unit = {}
-        ) : Unit = input (
+) : Unit = input (
     type = InputType.radio,
     name = "color") {
     option.forEach {
@@ -74,17 +57,30 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
     }
     block()
 
-    }
+}
 
-Функция смены цвета текста
 
-    
-    private fun colorchange(value: String): (Event) -> Unit {
+private fun colorchange(value: String): (Event) -> Unit {
     return {
         val div = document.getElementById("root")!!
         div.setAttribute("style", "color:${value}")
     }
-    }
+}
 
-Пример работы программы:
-<img src = lab2.png>
+```
+
+На рисунке 1 представлен текст до нажатия на кнопку
+
+<img src = 1.jpg>
+
+На рисунке 2 представлен текст при нажатии на кнопку Yellow
+
+<img src = 2.jpg>
+
+На рисунке 3 представлен текст при нажатии на кнопку Red
+
+<img src = 3.jpg>
+
+На рисунке 4 представлен текст при нажатии на кнопку Blue
+
+<img src = 4.jpg>
