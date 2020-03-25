@@ -1,10 +1,10 @@
 import data.Student
 import data.studentList
-import kotlinx.html.H1
-import kotlinx.html.LI
+import input
+import kotlinx.html.*
 import kotlinx.html.dom.append
-import kotlinx.html.id
 import kotlinx.html.js.*
+import kotlinx.html.js.li
 import org.w3c.dom.events.Event
 import kotlin.browser.document
 import kotlin.dom.clear
@@ -12,7 +12,7 @@ import kotlin.dom.clear
 var ascending = true
 
 fun main() {
-    document.getElementById("karas")!!.append {
+    document.getElementById("root")!!.append {
         h1 {
             +"Students"
             firstSort()
@@ -28,6 +28,21 @@ fun main() {
                     val tmp = it
                     onClickFunction = onClickFunction2(tmp)
                 }
+            }
+
+            p {
+
+                +"Blue"
+                input (option = arrayListOf("blue"))
+                br
+                +"Red"
+                input (option = arrayListOf("red"))
+                br
+                +"Yellow"
+                input (option = arrayListOf("yellow"))
+                br
+                +"White"
+                input (option = arrayListOf("white"))
             }
         }
     }
@@ -72,4 +87,25 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
             } else "style" to "color:white"}
     }
     console.log("2 - SN = ${tmp.surName}\n ${tmp.presence} \nID = ${this.id}")
+}
+fun FlowOrInteractiveOrPhrasingContent.input(
+    option: List<String>,
+    block : INPUT.() -> Unit = {}
+) : Unit = input (
+    type = InputType.radio,
+    name = "color") {
+    option.forEach {
+        value = it
+        onClickFunction = colorchange(value)
+    }
+    block()
+
+}
+
+
+private fun colorchange(value: String): (Event) -> Unit {
+    return {
+        val div = document.getElementById("root")!!
+        div.setAttribute("style", "color:${value}")
+    }
 }
