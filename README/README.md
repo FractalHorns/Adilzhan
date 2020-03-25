@@ -53,3 +53,42 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
 На рисунке 2 представлен список студентов после нажатия на какого либо студента 
 
 <img src = 2.jpg>
+
+Функции, отвечающие за создание радиокнопок для изменения цвета текста
+     p {
+
+                +"Blue"
+                input (option = arrayListOf("blue"))
+                br
+                +"Red"
+                input (option = arrayListOf("red"))
+                br
+                +"Yellow"
+                input (option = arrayListOf("yellow"))
+                br
+                +"White"
+                input (option = arrayListOf("white"))
+                }
+                
+          fun FlowOrInteractiveOrPhrasingContent.input(
+    option: List<String>,
+    block : INPUT.() -> Unit = {}
+        ) : Unit = input (
+    type = InputType.radio,
+    name = "color") {
+    option.forEach {
+        value = it
+        onClickFunction = colorchange(value)
+    }
+    block()
+
+    }
+
+Функция смены цвета текста
+
+    private fun colorchange(value: String): (Event) -> Unit {
+    return {
+        val div = document.getElementById("root")!!
+        div.setAttribute("style", "color:${value}")
+    }
+    }
