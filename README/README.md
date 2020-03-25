@@ -46,15 +46,6 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
 
 
 
-На рисунке 1 представлен список студентов до нажатия
-
-<img src = 1.jpg>
-
-На рисунке 2 представлен список студентов после нажатия на какого либо студента 
-
-<img src = 2.jpg>
-
-Функции, отвечающие за создание радиокнопок для изменения цвета текста
         
  ```Kotlin      
  p {
@@ -87,10 +78,13 @@ private fun LI.onClickFunction2(tmp: Student): (Event) -> Unit = {
 
 Функция смены цвета текста
 
-    ```Kotlin 
+    
     private fun colorchange(value: String): (Event) -> Unit {
     return {
         val div = document.getElementById("root")!!
         div.setAttribute("style", "color:${value}")
     }
     }
+
+Пример работы программы:
+<img src = lab2.png>
