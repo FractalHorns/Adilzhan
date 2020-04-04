@@ -1,75 +1,59 @@
-Данная часть кода отвечает за вывод списка студентов и создания кнопок для окрашивания текста.
-
-```kotlin
+Основной код программы который выводит список студентов.
 
 fun main() {
-    document.getElementById("root")!!.append {
+    render(document.getElementById("root")!!) {
         h1 {
-            +"Students"
-            firstSort()
-            onClickFunction = onCLickFunction()
+            +"Список студентов"
         }
+        studentList(studentList)
+    }
+}
+В данном коде используется функция studentList.
+
+import data.Student
+import react.*
+import react.dom.li
+import react.dom.ol
+
+interface RStudentProps : RProps {
+    var student: Student
+}
+
+interface RStudentProps_spicok : RProps {
+    var students: Array<Student>
+}
+
+class RStudentList :  RComponent<RStudentProps_spicok, RState>() {
+
+    override fun RBuilder.render() {
         ol {
-            attributes += "id" to "listStudents"
-            var i = 0;
-            studentList.map {
+            props.students.map {
                 li {
-                    attributes += "id" to "l${++i}"
-                    +"${it.firstName} ${it.surName} ${if(it.presence)"присутствует" else "отсутствует"}"
-                    val tmp = it
-                    onClickFunction = onClickFunction2(tmp)
+                    rstudent(it)
                 }
             }
-
-            p {
-
-                +"Blue"
-                input (option = arrayListOf("blue"))
-                br
-                +"Red"
-                input (option = arrayListOf("red"))
-                br
-                +"Yellow"
-                input (option = arrayListOf("yellow"))
-                br
-                +"White"
-                input (option = arrayListOf("white"))
-            }
         }
+
     }
 }
 
-```
-
-Для уменьшения размера кода мы переопределили функцию input.
-
-```kotlin
-
-fun FlowOrInteractiveOrPhrasingContent.input(
-    option: List<String>,
-    block : INPUT.() -> Unit = {}
-) : Unit = input (
-    type = InputType.radio,
-    name = "color") {
-    option.forEach {
-        value = it
-        onClickFunction = colorchange(value)
+fun RBuilder.rstudent(student: Student) =
+    child(
+        functionalComponent<RStudentProps> {
+            +"${it.student.firstname} ${it.student.surname}"
+        }
+    ){
+        attrs.student = student
     }
-    block()
 
+
+
+fun RBuilder.studentList(students: ArrayList<Student>) =
+child(RStudentList::class) {
+    attrs.students = students.toTypedArray()
 }
 
-
-private fun colorchange(value: String): (Event) -> Unit {
-    return {
-        val div = document.getElementById("root")!!
-        div.setAttribute("style", "color:${value}")
-    }
-}
-
-```
-
-На рисунке 1 представлены компоненты React
+На рисунке 1 представлены три функциональных компонента React
 
 <img src = 1.jpg>
 
