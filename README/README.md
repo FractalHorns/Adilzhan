@@ -69,7 +69,7 @@ private fun colorchange(value: String): (Event) -> Unit {
 
 ```
 
-На рисунке 1 представлен текст до нажатия на кнопку
+На рисунке 1 представлены компоненты React
 
 <img src = 1.jpg>
 
