@@ -73,14 +73,4 @@ private fun colorchange(value: String): (Event) -> Unit {
 
 <img src = 1.jpg>
 
-На рисунке 2 представлен текст при нажатии на кнопку Yellow
 
-<img src = 2.jpg>
-
-На рисунке 3 представлен текст при нажатии на кнопку Red
-
-<img src = 3.jpg>
-
-На рисунке 4 представлен текст при нажатии на кнопку Blue
-
-<img src = 4.jpg>
