@@ -93,11 +93,11 @@ fun RBuilder.rstudentlist(students: Array<Student>, present: Array<Boolean>, onC
 
 
 
-На рисунке 1 представлен список до нажатия
+
 
 <img src = 1.jpg>
 
-На рисунке 2 представлен список после нажатия и что стало с сотоянием после нажатия на студента
+информация об RSubjects в React Components
 
 <img src = 2.jpg>
 
