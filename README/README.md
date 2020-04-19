@@ -1,86 +1,103 @@
-Данная часть кода отвечает за вывод списка студентов и создания кнопок дляя окрашивания текста.
+Реализация компонента занятие
 
-```kotlin
+```kotlim
+interface RSubjectProps : RProps {
+    var subject: Array<Subject>
+    var listStudent :Array<Student>
+ 
+}
 
-fun main() {
-    document.getElementById("root")!!.append {
-        h1 {
-            +"Students"
-            firstSort()
-            onClickFunction = onCLickFunction()
+interface RSubjectState : RState {
+    var present: Array<Boolean>
+}
+
+class RSubject : RComponent<RSubjectProps, RSubjectState>() {
+    override fun componentWillMount() {
+        state.apply {
+            present = Array(props.listStudent.size) { false }
         }
-        ol {
-            attributes += "id" to "listStudents"
-            var i = 0;
-            studentList.map {
-                li {
-                    attributes += "id" to "l${++i}"
-                    +"${it.firstName} ${it.surName} ${if(it.presence)"присутствует" else "отсутствует"}"
-                    val tmp = it
-                    onClickFunction = onClickFunction2(tmp)
-                }
+    }
+    fun RBuilder.onIndex(): (Int) -> (Event) -> Unit = {
+        onClick(it)
+    }
+    override fun RBuilder.render() {
+        props.subject.map {
+            + it.name
+            ol {
+                rstudentlist(props.listStudent, state.present, onIndex())
             }
+        }
+    }
 
-            p {
-
-                +"Blue"
-                input (option = arrayListOf("blue"))
-                br
-                +"Red"
-                input (option = arrayListOf("red"))
-                br
-                +"Yellow"
-                input (option = arrayListOf("yellow"))
-                br
-                +"White"
-                input (option = arrayListOf("white"))
-            }
+    fun RBuilder.onClick(index: Int): (Event) -> Unit = {
+        setState {
+            present[index] = !present[index]
         }
     }
 }
 
+
+
+fun RBuilder.rsubject(subject:  ArrayList<Subject> ) =
+    child(RSubject::class)
+    {
+        attrs.subject = subject.toTypedArray()
+        attrs.listStudent = studentList.toTypedArray()
+    }
+
 ```
 
-Для того что бы сократать код мы переопределили функцию input.
+
+
+В данной части кода мы подняли состояние компонента RStudentList в созданый компонент RSubject
+
+```kotlin
+interface RSubjectProps : RProps {
+    var subject: Array<Subject>
+    var listStudent :Array<Student>
+ 
+}
+
+interface RSubjectState : RState {
+    var present: Array<Boolean>
+}
+
+```
+
+В данной части кода мы переделали компонент  RStudentList  в функциональный 
 
 ```kotlin
 
-fun FlowOrInteractiveOrPhrasingContent.input(
-    option: List<String>,
-    block : INPUT.() -> Unit = {}
-) : Unit = input (
-    type = InputType.radio,
-    name = "color") {
-    option.forEach {
-        value = it
-        onClickFunction = colorchange(value)
-    }
-    block()
-
+interface RStudentListProps : RProps {
+    var students: Array<Student>
+    var present: Array<Boolean>
+    var onClick:  (Int) -> (Event) -> Unit
 }
 
-
-private fun colorchange(value: String): (Event) -> Unit {
-    return {
-        val div = document.getElementById("root")!!
-        div.setAttribute("style", "color:${value}")
+val RFstudentlist =
+    functionalComponent<RStudentListProps> { props ->
+        props.students.mapIndexed { index, student ->
+            li {
+                rstudent(student, props.present[index], props.onClick(index))
+            }
+        }
     }
-}
 
+fun RBuilder.rstudentlist(students: Array<Student>, present: Array<Boolean>, onClick:(Int) -> (Event) -> Unit) =
+    child(RFstudentlist) {
+        attrs.students = students
+        attrs.present = present
+        attrs.onClick = onClick
+    }
 ```
 
-На рисунке 1 представлен текст до нажатия на кнопку
+
+
+На рисунке 1 представлен список до нажатия
 
 <img src = 1.jpg>
 
-На рисунке 2 представлен текст при нажатии на кнопку Yellow
+На рисунке 2 представлен список после нажатия и что стало с сотоянием после нажатия на студента
 
 <img src = 2.jpg>
 
-На рисунке 3 представлен текст при нажатии на кнопку Red
-
-<img src = 3.jpg>
-
-На рисунке 4 представлен текст при нажатии на кнопку Blue
-
-<img src = 4.jpg>
